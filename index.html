@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday 🎂</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      color: white;
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 40px;
+    }
+
+    p {
+      width: 70%;
+      margin: auto;
+      font-size: 18px;
+    }
+
+    img {
+      margin-top: 20px;
+      width: 250px;
+      border-radius: 15px;
+    }
+
+    .game {
+      margin-top: 30px;
+    }
+
+    input, button {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin: 5px;
+    }
+
+    button {
+      background-color: #ff6f61;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎉 Selamat Ulang Tahun Aura 🎂</h1>
+
+  <p>
+    Happy birthday!! Semoga rencana-rencana kamu ke depannya sukses semua ya. Aku doain yang terbaik buat kamu, pokoknya jangan lupa bahagia dan jangan lupa buat selalu sayang sama diri sendiri.
+no matter what happens between us, aku bakal selalu ada kalau kamu butuh bantuan atau sekadar temen buat dengerin cerita kamu. Aku nggak mau kita jadi kayak orang asing yang nggak tahu kabar satu sama lain. 
+Kalau kamu lagi ngerasa overwhelmed atau lagi ada masalah, don't hesitate to reach out. Aku bakal tetep jadi pendengar yang baik buat kamu kayak dulu. Semoga hari-hari kamu lancar terus ya, Semoga hari-hari kamu ke depannya selalu dikelilingi orang-orang baik yang sayang sama kamu
+Tetep jadi diri kamu sendiri, Semoga semua urusan kamu dimudahkan. Have a wonderful day, and see you when I see you!
+  </p>
+
+  <img src="https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif">
+
+  <div class="game">
+    <h2>🎮 Mini Game: Tebak Angka (1 - 10)</h2>
+    <input type="number" id="tebakan" placeholder="Masukkan angka">
+    <button onclick="cek()">Tebak!</button>
+    <p id="hasil"></p>
+  </div>
+
+  <script>
+    let angka = Math.floor(Math.random() * 10) + 1;
+
+    function cek() {
+      let input = document.getElementById("tebakan").value;
+      let hasil = document.getElementById("hasil");
+
+      if (input == angka) {
+        hasil.innerHTML = "🎉 Benar! Kamu hebat!";
+      } else {
+        hasil.innerHTML = "❌ Salah, coba lagi!";
+      }
+    }
+  </script>
+
+</body>
+</html>
