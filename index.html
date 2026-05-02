@@ -5,23 +5,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For You 💖</title>
 
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
 <style>
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'Poppins', sans-serif;
   overflow: hidden;
-  background: black;
   color: white;
 }
 
-/* CONTAINER */
+/* BACKGROUND ANIMASI */
+body::before {
+  content: "";
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 30%, #ff9acb, transparent),
+              radial-gradient(circle at 70% 70%, #a64dff, transparent),
+              radial-gradient(circle at 50% 50%, #ff4da6, transparent);
+  animation: moveBg 15s infinite alternate;
+  z-index: -1;
+}
+
+@keyframes moveBg {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(-20%, -20%); }
+}
+
+/* SLIDES */
 #slides {
   display: flex;
   height: 100vh;
-  transition: transform 0.7s ease;
+  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-/* SLIDE */
 .slide {
   min-width: 100vw;
   height: 100vh;
@@ -29,59 +48,86 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(#1a001a, #000);
+  backdrop-filter: blur(20px);
   text-align: center;
+}
+
+/* TEXT */
+h1 {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 10px;
+}
+
+p {
+  font-size: 16px;
+  opacity: 0.8;
 }
 
 /* BUTTON */
 button {
   margin-top: 20px;
   padding: 12px 25px;
-  border-radius: 20px;
+  border-radius: 25px;
   border: none;
-  background: hotpink;
+  background: linear-gradient(45deg, #ff9acb, #ff4da6);
   color: white;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-/* TEXT */
-h1 {
-  font-size: 28px;
-  padding: 0 20px;
+button:hover {
+  transform: scale(1.1);
 }
 
-/* NAMA */
+/* NAMA ANIMASI */
 .nama {
-  font-size: 40px;
-  color: pink;
+  font-size: 45px;
+  color: #fff;
+  text-shadow: 0 0 20px pink;
   opacity: 0;
-  transform: scale(0.5);
+  transform: translateY(30px);
   animation: muncul 1.5s forwards;
 }
 
 @keyframes muncul {
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
   }
 }
 
 /* GIF */
 img {
-  width: 200px;
+  width: 220px;
   border-radius: 20px;
+  margin-top: 20px;
 }
 
 /* HEART */
 .heart {
   position: fixed;
-  color: pink;
-  animation: naik 5s linear infinite;
+  color: #ff9acb;
+  animation: naik 6s linear infinite;
 }
 
 @keyframes naik {
-  from {transform: translateY(100vh);}
-  to {transform: translateY(-10vh);}
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* SPARK */
+.spark {
+  position: fixed;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
 }
 </style>
 </head>
@@ -131,7 +177,6 @@ function next() {
   document.getElementById("slides").style.transform =
     "translateX(-" + (index * 100) + "vw)";
 
-  // MUSIC START
   if (!musicStarted) {
     document.getElementById("music").src =
       "https://www.youtube.com/embed/6Dh-RL__uN4?autoplay=1&loop=1&playlist=6Dh-RL__uN4";
@@ -149,8 +194,16 @@ function hearts(){
   h.style.left = Math.random()*100+"vw";
   h.style.fontSize = (Math.random()*20+10)+"px";
   document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+}
 
-  setTimeout(()=>h.remove(),5000);
+// SPARKLE
+for (let i = 0; i < 60; i++) {
+  let s = document.createElement("div");
+  s.className = "spark";
+  s.style.left = Math.random()*100+"vw";
+  s.style.top = Math.random()*100+"vh";
+  document.body.appendChild(s);
 }
 </script>
 
