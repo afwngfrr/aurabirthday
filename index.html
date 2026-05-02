@@ -2,34 +2,35 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For You 💖</title>
 
 <style>
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: sans-serif;
   overflow: hidden;
   background: black;
   color: white;
 }
 
-/* SLIDE CONTAINER */
+/* CONTAINER */
 #slides {
   display: flex;
-  width: 500%;
   height: 100vh;
-  transition: transform 0.8s ease;
+  transition: transform 0.7s ease;
 }
 
+/* SLIDE */
 .slide {
-  width: 100vw;
+  min-width: 100vw;
   height: 100vh;
-  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: linear-gradient(#1a001a, #000);
+  text-align: center;
 }
 
 /* BUTTON */
@@ -45,17 +46,17 @@ button {
 
 /* TEXT */
 h1 {
-  font-size: 40px;
-  text-align: center;
+  font-size: 28px;
+  padding: 0 20px;
 }
 
-/* NAMA ANIMASI */
+/* NAMA */
 .nama {
-  font-size: 50px;
+  font-size: 40px;
   color: pink;
   opacity: 0;
   transform: scale(0.5);
-  animation: muncul 2s forwards;
+  animation: muncul 1.5s forwards;
 }
 
 @keyframes muncul {
@@ -63,6 +64,12 @@ h1 {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+/* GIF */
+img {
+  width: 200px;
+  border-radius: 20px;
 }
 
 /* HEART */
@@ -76,46 +83,34 @@ h1 {
   from {transform: translateY(100vh);}
   to {transform: translateY(-10vh);}
 }
-
-/* GIF */
-img {
-  width: 250px;
-  border-radius: 20px;
-}
 </style>
 </head>
 
 <body>
 
-<!-- SLIDES -->
 <div id="slides">
 
-  <!-- 1 -->
   <div class="slide">
     <h1>Hai kamu 💖</h1>
     <button onclick="next()">Mulai</button>
   </div>
 
-  <!-- 2 -->
   <div class="slide">
     <h1>Aku punya sesuatu...</h1>
     <button onclick="next()">Lanjut</button>
   </div>
 
-  <!-- 3 -->
   <div class="slide">
     <h1>Hari ini spesial banget ✨</h1>
     <button onclick="next()">Kenapa?</button>
   </div>
 
-  <!-- 4 (NAMA) -->
   <div class="slide">
     <h1>Karena ini hari ulang tahun...</h1>
     <div class="nama">AURA 💖</div>
     <button onclick="next()">Lanjut</button>
   </div>
 
-  <!-- 5 -->
   <div class="slide">
     <h1>🎉 Happy Birthday 🎂</h1>
     <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
@@ -136,7 +131,7 @@ function next() {
   document.getElementById("slides").style.transform =
     "translateX(-" + (index * 100) + "vw)";
 
-  // 🎵 start music on first click
+  // MUSIC START
   if (!musicStarted) {
     document.getElementById("music").src =
       "https://www.youtube.com/embed/6Dh-RL__uN4?autoplay=1&loop=1&playlist=6Dh-RL__uN4";
@@ -146,7 +141,7 @@ function next() {
   hearts();
 }
 
-// HEART EFFECT
+// HEART
 function hearts(){
   let h = document.createElement("div");
   h.className = "heart";
