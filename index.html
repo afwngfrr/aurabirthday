@@ -2,24 +2,24 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Happy Birthday 💖</title>
+<title>For You 💖</title>
 
 <style>
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle, #0f0f0f, #000);
+  background: linear-gradient(to bottom, #1a001a, #000);
   color: white;
   text-align: center;
   overflow: hidden;
 }
 
-/* START SCREEN */
+/* START */
 #start {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: black;
+  background: #000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,38 +29,30 @@ body {
 button {
   padding: 15px 30px;
   font-size: 20px;
-  border-radius: 20px;
+  border-radius: 30px;
   border: none;
-  background: linear-gradient(45deg, pink, hotpink);
+  background: linear-gradient(45deg, #ff9acb, #ff4da6);
   color: white;
   cursor: pointer;
-  transition: 0.3s;
-}
-
-button:active {
-  transform: scale(1.2);
 }
 
 /* CONTENT */
 #content {
   display: none;
-  padding-top: 50px;
+  padding-top: 40px;
 }
 
 h1 {
   font-size: 42px;
-  animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 10px pink; }
-  to { text-shadow: 0 0 30px hotpink; }
+  color: #ff9acb;
+  text-shadow: 0 0 20px pink;
 }
 
 p {
-  width: 80%;
+  width: 85%;
   margin: auto;
   font-size: 18px;
+  line-height: 1.6;
 }
 
 img {
@@ -69,174 +61,111 @@ img {
   margin-top: 20px;
 }
 
-/* CONFETTI */
-.confetti {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  top: -10px;
-  animation: fall linear infinite;
-}
-
-@keyframes fall {
-  to {
-    transform: translateY(100vh) rotate(360deg);
-  }
-}
-
-/* HEART */
+/* HEART FLOAT */
 .heart {
   position: fixed;
-  color: pink;
   font-size: 20px;
-  animation: floatUp 5s linear infinite;
+  animation: naik 6s linear infinite;
+  color: #ff69b4;
 }
 
-@keyframes floatUp {
+@keyframes naik {
   from { transform: translateY(100vh); opacity: 1; }
   to { transform: translateY(-10vh); opacity: 0; }
 }
 
 /* SPARKLE */
-.sparkle {
+.spark {
   position: fixed;
   width: 3px;
   height: 3px;
-  background: white;
+  background: pink;
   border-radius: 50%;
-  animation: blink 1.5s infinite;
+  animation: blink 2s infinite;
 }
 
 @keyframes blink {
   50% { opacity: 0; }
 }
 
-/* CANVAS BG */
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
+/* GLOW BOX */
+.box {
+  background: rgba(255,255,255,0.05);
+  padding: 20px;
+  border-radius: 20px;
+  margin: 20px;
+  box-shadow: 0 0 20px rgba(255,105,180,0.3);
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="bg"></canvas>
-
 <div id="start">
-  <button onclick="mulai()">Klik untuk buka 🎁</button>
+  <button onclick="mulai()">Klik ya 🎁</button>
 </div>
 
 <div id="content">
-  <h1>🎉 Happy Birthday 🎂</h1>
-  <p id="text"></p>
-  <img src="https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif">
-</div>
 
-<audio id="music" loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
-</audio>
+  <h1>Happy Birthday 💖</h1>
+
+  <div class="box">
+    <p id="text"></p>
+  </div>
+
+  <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+
+  <!-- Musik YouTube -->
+  <iframe width="0" height="0" 
+  src="https://www.youtube.com/embed/6Dh-RL__uN4?autoplay=1&loop=1&playlist=6Dh-RL__uN4"
+  frameborder="0" allow="autoplay"></iframe>
+
+</div>
 
 <script>
 function mulai() {
   document.getElementById("start").style.display = "none";
   document.getElementById("content").style.display = "block";
-  document.getElementById("music").play();
-  tulisText();
-  confetti();
+  tulis();
   hearts();
   sparkle();
 }
 
-// TEXT EFFECT
-let pesan = "Selamat ulang tahun 💖 Semoga hari-harimu selalu bahagia, penuh cinta, dan semua impianmu tercapai. Terima kasih sudah hadir dalam hidupku 🎁";
+// TEXT
+let pesan = "Selamat ulang tahun 💖 Untuk perempuan yang begitu indah, kuat, dan berharga. Semoga setiap langkahmu selalu dipenuhi kebahagiaan, dan semua impianmu perlahan menjadi nyata. Terima kasih sudah menjadi dirimu yang luar biasa ✨";
 
 let i = 0;
-function tulisText() {
+function tulis() {
   if (i < pesan.length) {
     document.getElementById("text").innerHTML += pesan.charAt(i);
     i++;
-    setTimeout(tulisText, 40);
+    setTimeout(tulis, 35);
   }
 }
 
-// CONFETTI
-function confetti() {
-  for (let i = 0; i < 80; i++) {
-    let d = document.createElement("div");
-    d.className = "confetti";
-    d.style.left = Math.random() * 100 + "vw";
-    d.style.background = ["red","yellow","blue","pink"][Math.floor(Math.random()*4)];
-    d.style.animationDuration = (Math.random()*3+2)+"s";
-    document.body.appendChild(d);
-  }
-}
-
-// HEARTS
+// HEART
 function hearts() {
   setInterval(() => {
     let h = document.createElement("div");
     h.className = "heart";
     h.innerHTML = "💖";
     h.style.left = Math.random() * 100 + "vw";
-    h.style.fontSize = (Math.random()*20+10)+"px";
+    h.style.fontSize = (Math.random()*20+15)+"px";
     document.body.appendChild(h);
-
-    setTimeout(() => h.remove(), 5000);
+    setTimeout(() => h.remove(), 6000);
   }, 300);
 }
 
-// SPARKLES
+// SPARK
 function sparkle() {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 80; i++) {
     let s = document.createElement("div");
-    s.className = "sparkle";
-    s.style.left = Math.random() * 100 + "vw";
-    s.style.top = Math.random() * 100 + "vh";
+    s.className = "spark";
+    s.style.left = Math.random()*100+"vw";
+    s.style.top = Math.random()*100+"vh";
     document.body.appendChild(s);
   }
 }
-
-// PARTICLE BACKGROUND
-let canvas = document.getElementById("bg");
-let ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let p = [];
-for (let i = 0; i < 100; i++) {
-  p.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 2,
-    d: Math.random() * 1
-  });
-}
-
-function draw() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = "white";
-  p.forEach(pt=>{
-    ctx.beginPath();
-    ctx.arc(pt.x, pt.y, pt.r, 0, Math.PI*2);
-    ctx.fill();
-  });
-  update();
-}
-
-function update() {
-  p.forEach(pt=>{
-    pt.y += pt.d;
-    if (pt.y > canvas.height) {
-      pt.y = 0;
-      pt.x = Math.random() * canvas.width;
-    }
-  });
-}
-
-setInterval(draw, 33);
 </script>
 
 </body>
