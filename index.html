@@ -1,85 +1,177 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Happy Birthday 🎂</title>
-  <style>
-    body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #ff9a9e, #fad0c4);
-      color: white;
-    }
+<meta charset="UTF-8">
+<title>Happy Birthday 💖</title>
 
-    h1 {
-      margin-top: 40px;
-      font-size: 40px;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle, #1a1a1a, #000);
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
 
-    p {
-      width: 70%;
-      margin: auto;
-      font-size: 18px;
-    }
+#start {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
 
-    img {
-      margin-top: 20px;
-      width: 250px;
-      border-radius: 15px;
-    }
+button {
+  padding: 15px 30px;
+  font-size: 20px;
+  border-radius: 20px;
+  border: none;
+  background: linear-gradient(45deg, pink, hotpink);
+  color: white;
+  cursor: pointer;
+}
 
-    .game {
-      margin-top: 30px;
-    }
+#content {
+  display: none;
+  padding-top: 50px;
+}
 
-    input, button {
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      margin: 5px;
-    }
+h1 {
+  font-size: 42px;
+}
 
-    button {
-      background-color: #ff6f61;
-      color: white;
-      cursor: pointer;
-    }
-  </style>
+p {
+  width: 80%;
+  margin: auto;
+  font-size: 18px;
+}
+
+img {
+  width: 260px;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+/* confetti */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: red;
+  top: -10px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+/* particle background */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+</style>
 </head>
+
 <body>
 
-  <h1>🎉 Selamat Ulang Tahun Aura 🎂</h1>
+<canvas id="bg"></canvas>
 
-  <p>
-    Happy birthday!! Semoga rencana-rencana kamu ke depannya sukses semua ya. Aku doain yang terbaik buat kamu, pokoknya jangan lupa bahagia dan jangan lupa buat selalu sayang sama diri sendiri.
-no matter what happens between us, aku bakal selalu ada kalau kamu butuh bantuan atau sekadar temen buat dengerin cerita kamu. Aku nggak mau kita jadi kayak orang asing yang nggak tahu kabar satu sama lain. 
-Kalau kamu lagi ngerasa overwhelmed atau lagi ada masalah, don't hesitate to reach out. Aku bakal tetep jadi pendengar yang baik buat kamu kayak dulu. Semoga hari-hari kamu lancar terus ya, Semoga hari-hari kamu ke depannya selalu dikelilingi orang-orang baik yang sayang sama kamu
-Tetep jadi diri kamu sendiri, Semoga semua urusan kamu dimudahkan. Have a wonderful day, and see you when I see you!
-  </p>
+<div id="start">
+  <button onclick="mulai()">Klik untuk buka 🎁</button>
+</div>
 
+<div id="content">
+  <h1>🎉 Happy Birthday 🎂</h1>
+  <p id="text"></p>
   <img src="https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif">
+</div>
 
-  <div class="game">
-    <h2>🎮 Mini Game: Tebak Angka (1 - 10)</h2>
-    <input type="number" id="tebakan" placeholder="Masukkan angka">
-    <button onclick="cek()">Tebak!</button>
-    <p id="hasil"></p>
-  </div>
+<audio id="music" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
 
-  <script>
-    let angka = Math.floor(Math.random() * 10) + 1;
+<script>
+function mulai() {
+  document.getElementById("start").style.display = "none";
+  document.getElementById("content").style.display = "block";
+  document.getElementById("music").play();
+  tulisText();
+  confettiStart();
+}
 
-    function cek() {
-      let input = document.getElementById("tebakan").value;
-      let hasil = document.getElementById("hasil");
+// typing effect
+let pesan = "Selamat ulang tahun 💖 Semoga semua harapanmu tercapai, selalu diberi kesehatan, dan bahagia setiap hari. Terima kasih sudah menjadi bagian terindah dalam hidupku 🎁";
 
-      if (input == angka) {
-        hasil.innerHTML = "🎉 Benar! Kamu hebat!";
-      } else {
-        hasil.innerHTML = "❌ Salah, coba lagi!";
-      }
+let i = 0;
+function tulisText() {
+  if (i < pesan.length) {
+    document.getElementById("text").innerHTML += pesan.charAt(i);
+    i++;
+    setTimeout(tulisText, 40);
+  }
+}
+
+// confetti
+function confettiStart() {
+  for (let i = 0; i < 50; i++) {
+    let div = document.createElement("div");
+    div.classList.add("confetti");
+    div.style.left = Math.random() * 100 + "vw";
+    div.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    div.style.background = ["red","yellow","blue","pink"][Math.floor(Math.random()*4)];
+    document.body.appendChild(div);
+  }
+}
+
+// particle background
+let canvas = document.getElementById("bg");
+let ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+for (let i = 0; i < 80; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2,
+    d: Math.random() * 1
+  });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "white";
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+  update();
+}
+
+function update() {
+  particles.forEach(p => {
+    p.y += p.d;
+    if (p.y > canvas.height) {
+      p.y = 0;
+      p.x = Math.random() * canvas.width;
     }
-  </script>
+  });
+}
+
+setInterval(draw, 33);
+</script>
 
 </body>
 </html>
