@@ -8,163 +8,154 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to bottom, #1a001a, #000);
-  color: white;
-  text-align: center;
   overflow: hidden;
+  background: black;
+  color: white;
 }
 
-/* START */
-#start {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: #000;
+/* SLIDE CONTAINER */
+#slides {
   display: flex;
+  width: 500%;
+  height: 100vh;
+  transition: transform 0.8s ease;
+}
+
+.slide {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 10;
+  background: linear-gradient(#1a001a, #000);
 }
 
+/* BUTTON */
 button {
-  padding: 15px 30px;
-  font-size: 20px;
-  border-radius: 30px;
+  margin-top: 20px;
+  padding: 12px 25px;
+  border-radius: 20px;
   border: none;
-  background: linear-gradient(45deg, #ff9acb, #ff4da6);
+  background: hotpink;
   color: white;
   cursor: pointer;
 }
 
-/* CONTENT */
-#content {
-  display: none;
-  padding-top: 40px;
-}
-
+/* TEXT */
 h1 {
-  font-size: 42px;
-  color: #ff9acb;
-  text-shadow: 0 0 20px pink;
+  font-size: 40px;
+  text-align: center;
 }
 
-p {
-  width: 85%;
-  margin: auto;
-  font-size: 18px;
-  line-height: 1.6;
+/* NAMA ANIMASI */
+.nama {
+  font-size: 50px;
+  color: pink;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: muncul 2s forwards;
 }
 
-img {
-  width: 260px;
-  border-radius: 20px;
-  margin-top: 20px;
+@keyframes muncul {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-/* HEART FLOAT */
+/* HEART */
 .heart {
   position: fixed;
-  font-size: 20px;
-  animation: naik 6s linear infinite;
-  color: #ff69b4;
+  color: pink;
+  animation: naik 5s linear infinite;
 }
 
 @keyframes naik {
-  from { transform: translateY(100vh); opacity: 1; }
-  to { transform: translateY(-10vh); opacity: 0; }
+  from {transform: translateY(100vh);}
+  to {transform: translateY(-10vh);}
 }
 
-/* SPARKLE */
-.spark {
-  position: fixed;
-  width: 3px;
-  height: 3px;
-  background: pink;
-  border-radius: 50%;
-  animation: blink 2s infinite;
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
-}
-
-/* GLOW BOX */
-.box {
-  background: rgba(255,255,255,0.05);
-  padding: 20px;
+/* GIF */
+img {
+  width: 250px;
   border-radius: 20px;
-  margin: 20px;
-  box-shadow: 0 0 20px rgba(255,105,180,0.3);
 }
 </style>
 </head>
 
 <body>
 
-<div id="start">
-  <button onclick="mulai()">Klik ya 🎁</button>
-</div>
+<!-- SLIDES -->
+<div id="slides">
 
-<div id="content">
-
-  <h1>Happy Birthday 💖</h1>
-
-  <div class="box">
-    <p id="text"></p>
+  <!-- 1 -->
+  <div class="slide">
+    <h1>Hai kamu 💖</h1>
+    <button onclick="next()">Mulai</button>
   </div>
 
-  <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+  <!-- 2 -->
+  <div class="slide">
+    <h1>Aku punya sesuatu...</h1>
+    <button onclick="next()">Lanjut</button>
+  </div>
 
-  <!-- Musik YouTube -->
-  <iframe width="0" height="0" 
-  src="https://www.youtube.com/embed/6Dh-RL__uN4?autoplay=1&loop=1&playlist=6Dh-RL__uN4"
-  frameborder="0" allow="autoplay"></iframe>
+  <!-- 3 -->
+  <div class="slide">
+    <h1>Hari ini spesial banget ✨</h1>
+    <button onclick="next()">Kenapa?</button>
+  </div>
+
+  <!-- 4 (NAMA) -->
+  <div class="slide">
+    <h1>Karena ini hari ulang tahun...</h1>
+    <div class="nama">AURA 💖</div>
+    <button onclick="next()">Lanjut</button>
+  </div>
+
+  <!-- 5 -->
+  <div class="slide">
+    <h1>🎉 Happy Birthday 🎂</h1>
+    <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+    <p>Semoga kamu selalu bahagia 💖</p>
+  </div>
 
 </div>
 
+<!-- MUSIC -->
+<iframe id="music" width="0" height="0" src="" allow="autoplay"></iframe>
+
 <script>
-function mulai() {
-  document.getElementById("start").style.display = "none";
-  document.getElementById("content").style.display = "block";
-  tulis();
+let index = 0;
+let musicStarted = false;
+
+function next() {
+  index++;
+  document.getElementById("slides").style.transform =
+    "translateX(-" + (index * 100) + "vw)";
+
+  // 🎵 start music on first click
+  if (!musicStarted) {
+    document.getElementById("music").src =
+      "https://www.youtube.com/embed/6Dh-RL__uN4?autoplay=1&loop=1&playlist=6Dh-RL__uN4";
+    musicStarted = true;
+  }
+
   hearts();
-  sparkle();
 }
 
-// TEXT
-let pesan = "Selamat ulang tahun 💖 Untuk perempuan yang begitu indah, kuat, dan berharga. Semoga setiap langkahmu selalu dipenuhi kebahagiaan, dan semua impianmu perlahan menjadi nyata. Terima kasih sudah menjadi dirimu yang luar biasa ✨";
+// HEART EFFECT
+function hearts(){
+  let h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💖";
+  h.style.left = Math.random()*100+"vw";
+  h.style.fontSize = (Math.random()*20+10)+"px";
+  document.body.appendChild(h);
 
-let i = 0;
-function tulis() {
-  if (i < pesan.length) {
-    document.getElementById("text").innerHTML += pesan.charAt(i);
-    i++;
-    setTimeout(tulis, 35);
-  }
-}
-
-// HEART
-function hearts() {
-  setInterval(() => {
-    let h = document.createElement("div");
-    h.className = "heart";
-    h.innerHTML = "💖";
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.fontSize = (Math.random()*20+15)+"px";
-    document.body.appendChild(h);
-    setTimeout(() => h.remove(), 6000);
-  }, 300);
-}
-
-// SPARK
-function sparkle() {
-  for (let i = 0; i < 80; i++) {
-    let s = document.createElement("div");
-    s.className = "spark";
-    s.style.left = Math.random()*100+"vw";
-    s.style.top = Math.random()*100+"vh";
-    document.body.appendChild(s);
-  }
+  setTimeout(()=>h.remove(),5000);
 }
 </script>
 
